@@ -1,0 +1,61 @@
+input {
+    margin: 0px;
+    width: 70px;
+}
+
+button {
+    background-color: #4CAF50;
+    /* Green */
+    border: none;
+    color: white;
+    padding: 4px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+button#add:active {
+    position: relative;
+    top: 1px;
+}
+
+button#add:hover {
+    background-color: red;
+}
+
+button#add {
+    background-color: pink;
+}
+
+button#compute:hover {
+    background-color: grey;
+}
+
+button#compute:active {
+    position: relative;
+    top: 1px;
+}
+
+button#compute {
+    background-color: lightgrey;
+}
+
+table {
+    /*border: 2px black solid;*/
+    border-color: grey;
+}
+
+td {
+    text-align: center;
+    border: 1px black solid;
+    border-color: grey;
+}
+
+.ans {
+    color: red;
+}
+
+.col {
+    width: 30px;
+}
