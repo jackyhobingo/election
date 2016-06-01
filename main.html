@@ -1,18 +1,74 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title></title>
-	<link rel="stylesheet" href="css/main.css">
-	<script src="js/compute.js"></script>
-	<script></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/jquery-2.2.4.min.js"></script>
+    <script src="js/compute.js"></script>
 </head>
+
 <body>
-	<table>
-		<tr>
-			<td>123</td>
-		</tr>
-	</table>
+    <table id='requirement'>
+        <tr>
+            <td>
+                選出幾個人
+                <input type="text" name='how_many' placeholder="輸入數字">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                性別限制
+                <input type="text" name='how_many'>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                職位限制
+                <input type="text" name='how_many'>
+            </td>
+        </tr>
+    </table>
+    <table id='condition'>
+        <tr>
+            <td>姓名</td>
+            <td colspan='4'>性別</td>
+            <td colspan='4'>職位</td>
+            <td id="votes">票數</td>
+        </tr>
+        <tr class="num1">
+            <td>
+                <input class="num1" id="num1_col1" type="text">
+            </td>
+            <td>
+                <input class="num1 gender" id="num1_col2" type=radio name="gender" value="1">
+            </td>
+            <td class="gender">男</td>
+            <td>
+                <input class="num1 gender" id="num1_col2" type=radio value="2" name="gender">
+            </td>
+            <td class="gender">女</td>
+            <td>
+                <input class="num1 position" id="num1_col3" type=radio name="position" value="1">
+            </td>
+            <td class="position">一般</td>
+            <td>
+                <input class="num1 position" id="num1_col3" type=radio value="2" name="position">
+            </td>
+            <td class="position">行政</td>
+            <td>
+                <input class="num1" id="num1_col4" type="text">
+            </td>
+        </tr>
+    </table>
+    <button id="compute" onclick="compute()">計算結果</button>
+    <button id="add_candidate" onclick="add_candidate(candidate_count)">增加候選人</button>
+    <button id="add_condition" onclick="add_condition()">增加條件</button>
+    <button id="add_election_condition" onclick="add_election_condition()">增加選舉人條件</button>
+    <button onclick="test()">test</button>
+    <table id='result'></table>
 </body>
+
 </html>

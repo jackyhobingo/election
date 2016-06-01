@@ -1,10 +1,20 @@
 input {
     margin: 0px;
-    width: 70px;
+    /*width: 120px;*/
+}
+input.gender {
+    margin: 0px;
+    /*width: 20px;*/
+}
+td {
+    /*width: 130px;*/
+}
+td.gender {
+    /*width: 30px;*/
 }
 
 button {
-    background-color: #4CAF50;
+    background-color: lightgreen;
     /* Green */
     border: none;
     color: white;
@@ -14,17 +24,19 @@ button {
     display: inline-block;
     font-size: 16px;
 }
-
-button#add:active {
+button:hover {
+    background-color: green;
+}
+button:active {
     position: relative;
     top: 1px;
 }
 
-button#add:hover {
+button#add_candidate:hover {
     background-color: red;
 }
 
-button#add {
+button#add_candidate {
     background-color: pink;
 }
 
@@ -32,10 +44,6 @@ button#compute:hover {
     background-color: grey;
 }
 
-button#compute:active {
-    position: relative;
-    top: 1px;
-}
 
 button#compute {
     background-color: lightgrey;
