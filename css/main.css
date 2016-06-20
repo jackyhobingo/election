@@ -4,18 +4,9 @@ input {
 }
 input.gender {
     margin: 0px;
-    /*width: 20px;*/
 }
-td {
-    /*width: 130px;*/
-}
-td.gender {
-    /*width: 30px;*/
-}
-
 button {
     background-color: lightgreen;
-    /* Green */
     border: none;
     color: white;
     padding: 4px 5px;
@@ -50,7 +41,6 @@ button#compute {
 }
 
 table {
-    /*border: 2px black solid;*/
     border-color: grey;
 }
 
