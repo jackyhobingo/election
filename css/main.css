@@ -1,6 +1,10 @@
+tr.selected {
+    background-color: lightgreen; 
+}
+
+
 input {
     margin: 0px;
-    /*width: 120px;*/
 }
 input.gender {
     margin: 0px;

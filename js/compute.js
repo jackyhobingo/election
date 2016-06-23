@@ -33,6 +33,16 @@ function is_limits_number_error(limits) {
     return false;
 }
 
+function show_ans(sorted_p_array) {
+    $('.selected').removeClass("selected");
+    for (var i=0 ; i < candidate_count; i ++) {
+        if( sorted_p_array[i].selected) {
+            $('tr.num'+sorted_p_array[i].num).addClass("selected");
+        } 
+    }
+
+}
+
 
 function compute_how_many_gender_prioritized_people(limits) {
     if (!is_gender_should_be_considered(limits)) {
@@ -83,12 +93,13 @@ function compute() {
     second_filter = get_filter("position", gender_limit.position, position_prioritized_people_amount);
 
     p = selection(p, people_needed_amount, first_filter, second_filter);
+    show_ans(p)
+    // for ( var i = 0 ;  i < candidate_count ; i++ ){
+    //     if (p[i].selected){
+    //         alert(p[i].name);
 
-    for ( var i = 0 ;  i < candidate_count ; i++ ){
-        if (p[i].is_be_selected){
-            alert(p[i].name);
-        }
-    }
+    //     }
+    // }
 
 
 }
@@ -101,7 +112,7 @@ function selection(sorted_p_array, needed_amount, first_filter, second_filter) {
     var had_selected = 0;
     for(var i = 0; i < candidate_count && first_filter[2] > 0; i++){
         if (sorted_p_array[i][first_filter[0]] == first_filter[1]) {
-            sorted_p_array[i].is_be_selected = true;
+            sorted_p_array[i].selected = true;
             had_selected ++;
             first_filter[2] --;
             if (needed_amount == had_selected) {
@@ -111,8 +122,8 @@ function selection(sorted_p_array, needed_amount, first_filter, second_filter) {
     }
     for (var i=0; i < candidate_count && second_filter[2] > 0; i++) {
         if (sorted_p_array[i][second_filter[0]] == second_filter[1]) {
-            if(!sorted_p_array[i].is_be_selected) {
-                sorted_p_array[i].is_be_selected = true;
+            if(!sorted_p_array[i].selected) {
+                sorted_p_array[i].selected = true;
                 had_selected ++;
             }
             second_filter[2] --;
@@ -122,8 +133,8 @@ function selection(sorted_p_array, needed_amount, first_filter, second_filter) {
         }
     }
     for (var i=0; i< candidate_count; i++) {
-        if(!sorted_p_array[i].is_be_selected) {
-            sorted_p_array[i].is_be_selected = true;
+        if(!sorted_p_array[i].selected) {
+            sorted_p_array[i].selected = true;
             had_selected ++;
             if (needed_amount == had_selected) {
                 return sorted_p_array
@@ -196,7 +207,8 @@ function People(i) {
         'gender': get_gender(i),
         'position': get_position(i),
         'votes': get_votes(i),
-        'is_be_selected': false
+        'selected': false,
+        'num': i
     }
 }
 
