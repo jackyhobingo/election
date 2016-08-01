@@ -1,63 +1,8 @@
-tr.selected {
-    background-color: lightgreen; 
+div.container{
+    padding-bottom: 10px
 }
 
-
-input {
-    margin: 0px;
-}
-input.gender {
-    margin: 0px;
-}
-button {
-    background-color: lightgreen;
-    border: none;
-    color: white;
-    padding: 4px 5px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-}
-button:hover {
-    background-color: green;
-}
-button:active {
-    position: relative;
-    top: 1px;
-}
-
-button#add_candidate:hover {
-    background-color: red;
-}
-
-button#add_candidate {
-    background-color: pink;
-}
-
-button#compute:hover {
-    background-color: grey;
-}
-
-
-button#compute {
-    background-color: lightgrey;
-}
-
-table {
-    border-color: grey;
-}
-
-td {
-    text-align: center;
-    border: 1px black solid;
-    border-color: grey;
-}
-
-.ans {
-    color: red;
-}
-
-.col {
-    width: 30px;
+input.in-btn{
+    color: black;
+    width: 24px;
 }
