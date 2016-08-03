@@ -1,5 +1,6 @@
 var num = 0;
-
+var MAN = 2;
+var WOMAN = 1;
 var UP = 38;
 var DOWN = 40;
 var LEFT = 37;
@@ -78,16 +79,25 @@ $(document).ready(function() {
 
     });
 
-    $('button#gender-limit').click(function() {
+    $('button#gender-limit1').click(function() {
 
         if ($(this).text().indexOf('無') > 0) {
-            $(this).html('性別限制：女性至少<input class="in-btn" type="text" id="gender-numerator">分之<input class="in-btn" id="gender-fraction" type="text">以上');
+            $(this).html('性別限制：女性至少<input class="in-btn" type="text" id="gender-numerator1">分之<input class="in-btn" id="gender-fraction1" type="text">以上');
             $(this).addClass("btn-info");
         }
 
     });
 
-    $('button#gender-limit').dblclick(function() {
+    $('button#gender-limit2').click(function() {
+
+        if ($(this).text().indexOf('無') > 0) {
+            $(this).html('性別限制：男性至少<input class="in-btn" type="text" id="gender-numerator2">分之<input class="in-btn" id="gender-fraction2" type="text">以上');
+            $(this).addClass("btn-info");
+        }
+
+    });
+
+    $('button#gender-limit1').dblclick(function() {
 
         if ($(this).text().indexOf('女') > 0) {
             $(this).html('性別限制：無');
@@ -95,6 +105,16 @@ $(document).ready(function() {
         }
 
     })
+
+    $('button#gender-limit2').dblclick(function() {
+
+        if ($(this).text().indexOf('男') > 0) {
+            $(this).html('性別限制：無');
+            $(this).removeClass("btn-info");
+        }
+
+    })
+
 
     $('button#position-limit').click(function() {
 
@@ -181,31 +201,52 @@ function get_total_woman() {
     return total;
 }
 
+function get_total_man() {
+    var total = 0
+    for (var i = 0; i < num; i++) {
+
+        if ($('div.num' + i).children('div').children("button.gender").text() === '男') {
+            total++;
+        }
+
+    }
+    return total;
+}
 
 
 
 
-function get_gender_limit() {
-    var limit = get_limit('gender');
-    var w = get_total_woman();
+function get_gender_limit(input_i) {
+    var gender_total = 0;
+    if (input_i === MAN){
+        gender_total = get_total_man();
+    } else {
+        gender_total = get_total_woman();
+    }
+    var limit = get_limit('gender', input_i);    
     var total = get_total_people();
+    
     var need_amount = get_needed_people_amount();
-    if (w / total < limit)
-        return Math.ceil(need_amount * w / total);
+    if (gender_total / total < limit)
+        return Math.ceil(need_amount * gender_total / total);
     else
         return Math.ceil(need_amount * limit);
 }
 
 function get_position_limit() {
-    var limit = get_limit('position');
+    var limit = get_limit('position', 0);
     var need_amount = get_needed_people_amount();
     return Math.ceil(need_amount * limit);
 }
 
-function get_limit(type) {
+function get_limit(type, input_i) {
+    var i = input_i;
+    if (i === 0) {
+        i = '';
+    } 
 
-    var n = parseInt($('button#' + type + '-limit').children('input#' + type + '-numerator').val());
-    var f = parseInt($('button#' + type + '-limit').children('input#' + type + '-fraction').val());
+    var n = parseInt($('button#' + type + '-limit' + i).children('input#' + type + '-numerator' + i).val());
+    var f = parseInt($('button#' + type + '-limit' + i).children('input#' + type + '-fraction' + i).val());
     ans = f / n;
     if (ans !== ans || ans >= 1) {
         ans = 0;
@@ -245,24 +286,39 @@ function form_button_event() {
 
     $('button#compute').click(function() {
         var p = PeopleArray(num);
-        var gender_limit = get_gender_limit();
-        var gender_chosen = 0;
+        var gender_limit_man = get_gender_limit(MAN);
+        var gender_limit_woman = get_gender_limit(WOMAN);
+        var gender_chosen_woman = 0;
+        var gender_chosen_man = 0;
         var position_limit = get_position_limit();
         var position_chosen = 0;
         var need_amount = get_needed_people_amount();
         var total_chosen = 0;
 
         // gender priority
-        for (var i = 0; i < num && need_amount > total_chosen && gender_limit > gender_chosen; i++) {
+        for (var i = 0; i < num && need_amount > total_chosen && gender_limit_woman > gender_chosen_woman; i++) {
             if (!p[i].selected && p[i].gender === '女') {
                 p[i].selected = true;
                 total_chosen++;
-                gender_chosen++;
+                gender_chosen_woman++;
                 if (p[i].position === '行政') {
                     position_chosen++;
                 }
             }
         }
+
+        for (var i = 0; i < num && need_amount > total_chosen && gender_limit_man > gender_chosen_man; i++) {
+            if (!p[i].selected && p[i].gender === '男') {
+                p[i].selected = true;
+                total_chosen++;
+                gender_chosen_man++;
+                if (p[i].position === '行政') {
+                    position_chosen++;
+                }
+            }
+        }
+
+
         // position priority
         for (var i = 0; i < num && need_amount > total_chosen && position_limit > position_chosen; i++) {
             if (!p[i].selected && p[i].position === '行政') {
