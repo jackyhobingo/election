@@ -37,7 +37,7 @@ $(document).ready(function() {
     $('button#position-limit').click(function() {
 
         if ($(this).text().indexOf('無') > 0) {
-            $(this).html('職位限制：每滿<input class="in-btn" type="text" id="position-numerator">人 應有<input class="in-btn" type="text" id="position-fraction">位行政人員');
+            $(this).html('職位限制：每滿<input class="in-btn" type="text" id="position-numerator">人 應有<input class="in-btn" type="text" id="position-fraction">位一般人員');
             $(this).addClass("btn-info");
         }
 
@@ -45,7 +45,7 @@ $(document).ready(function() {
 
     $('button#position-limit').dblclick(function() {
 
-        if ($(this).text().indexOf('行政') > 0) {
+        if ($(this).text().indexOf('一般') > 0) {
             $(this).html('職位限制：無');
             $(this).removeClass("btn-info");
         }
@@ -311,7 +311,7 @@ function compute() {
 
     // position priority
     for (var i = 0; i < num && need_amount > total_chosen && position_limit > position_chosen; i++) {
-        if (!p[i].selected && p[i].position === '行政') {
+        if (!p[i].selected && p[i].position === '一般') {
             p[i].selected = true;
             total_chosen++;
             position_chosen++;
@@ -330,7 +330,7 @@ function compute() {
             p[i].selected = true;
             total_chosen++;
             gender_chosen_woman++;
-            if (p[i].position === '行政') {
+            if (p[i].position === '一般') {
                 position_chosen++;
             }
         }
@@ -341,7 +341,7 @@ function compute() {
             p[i].selected = true;
             total_chosen++;
             gender_chosen_man++;
-            if (p[i].position === '行政') {
+            if (p[i].position === '一般') {
                 position_chosen++;
             }
         }
