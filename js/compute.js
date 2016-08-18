@@ -317,10 +317,9 @@ function compute() {
             position_chosen++;
             if (p[i].gender === '女') {
                 gender_chosen_woman++;
-            } 
-            else if (p[i].gender === '男') {
+            } else if (p[i].gender === '男') {
                 gender_chosen_man++;
-            } 
+            }
         }
     }
 
@@ -363,18 +362,39 @@ function compute() {
     // show the result
     for (var i = 0; i < num; i++) {
         if (p[i].selected) {
+            var gender_class = 'btn-primary';
+            if(p[i].gender == '女'){
+                gender_class = "btn-danger";
+            }
+            var position_class = '';
+            if (p[i].position == '行政') {
+                position_class = "btn-warning";
+            }
+
             $('div#result').append(
                 '\
                     <div class="container">\
                         <div class="row">\
+                            <div class="col-md-2 col-sm-2 col-xs-3">\
+                                ' + p[i].votes + '\
+                            </div>\
                             <div class="col-md-2 col-sm-2  col-xs-3">\
-                            ' + p[i].name + '\
+                                    ' + p[i].name + '\
+                            </div>\
+                            <div class="col-md-1 col-sm-1  col-xs-2">\
+                                <button class="btn '+gender_class+' ">' + p[i].gender + '</button>\
+                            </div>\
+                            <div class="col-md-1 col-sm-1  col-xs-2">\
+                                <button class="btn '+position_class+' ">' + p[i].position + '</button>\
                             </div>\
                         </div>\
                     </div>')
         }
     }
 }
+
+
+
 
 function get_limit(type, input_i) {
     var i = input_i;
