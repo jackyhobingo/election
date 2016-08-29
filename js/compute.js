@@ -61,10 +61,10 @@ function create_form() {
         $('div#candidate').append('\
                 <div class="container">\
                     <div class="row num' + i + '">\
-                        <div class="col-md-2 col-sm-2 col-xs-3">\
+                        <div class="col-md-2 col-sm-2 col-xs-2">\
                             <input class="form-control vote " id="index' + i + '1"  type="text" placeholder="票數">\
                         </div>\
-                        <div class="col-md-2 col-sm-2  col-xs-3">\
+                        <div class="col-md-2 col-sm-2  col-xs-2">\
                             <input class="form-control name" id="index' + i + '2"  type="text" placeholder="姓名">\
                         </div>\
                         <div class="col-md-1 col-sm-1  col-xs-2">\
@@ -72,6 +72,9 @@ function create_form() {
                         </div>\
                         <div class="col-md-1 col-sm-1  col-xs-2">\
                             <button class="btn position" id="index' + i + '4">一般</button>\
+                        </div>\
+                        <div class="col-md-1 col-sm-1  col-xs-2">\
+                            <button class="btn must_select" id="index' + i + '5">無</button>\
                         </div>\
                     </div>\
                 </div>');
@@ -113,7 +116,7 @@ function form_moving_event() {
                 }
                 break;
             case RIGHT:
-                if (tabIndexInt % 10 == 4) { //bound
+                if (tabIndexInt % 10 == 5) { //bound
                     $("#" + tabIndex).focus();
                 } else {
                     if (tabIndexInt > 10) {
@@ -237,11 +240,16 @@ function People(i) {
         return $('div.num' + num).children('div').children("button.position").text();
     }
 
+    function get_must_select(num) {
+        return $('div.num' + num).children('div').children("button.must_select").text();   
+    }
+
     return {
         'votes': get_votes(i),
         'name': get_name(i),
         'gender': get_gender(i),
         'position': get_position(i),
+        'must_select': get_must_select(i),
         'selected': false,
         'num': i
     }
@@ -308,7 +316,21 @@ function compute() {
     var need_amount = get_needed_people_amount();
     var total_chosen = 0;
 
-
+    // Must be selected
+    for (var i = 0; i < num; i++) {
+        if ( p[i].must_select === '必選') {
+            p[i].selected = true;
+            total_chosen++;
+            if (p[i].position === '一般') {
+                position_chosen ++;
+            }
+            if (p[i].gender === '女') {
+                gender_chosen_woman++;
+            } else if (p[i].gender === '男') {
+                gender_chosen_man++;
+            }
+        }
+    }
     // position priority
     for (var i = 0; i < num && need_amount > total_chosen && position_limit > position_chosen; i++) {
         if (!p[i].selected && p[i].position === '一般') {
@@ -431,6 +453,17 @@ function form_button_event() {
             $(this).html('男');
             $(this).addClass("btn-primary");
             $(this).removeClass("btn-danger");
+        }
+    });
+    
+    $('button.must_select').click(function() {
+        if ($(this).text() === '無') {
+            $(this).html('必選');
+            $(this).addClass("btn-warning");
+            
+        } else if ($(this).text() === '必選') {
+            $(this).html('無');
+            $(this).removeClass("btn-warning");
         }
     });
 
